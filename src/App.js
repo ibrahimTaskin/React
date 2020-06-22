@@ -4,14 +4,17 @@ import Category from "./Category";
 import Product from "./Product";
 import Navigate from "./Navigate";
 import alertify from "alertifyjs";
+import { Switch, Route } from "react-router-dom";
+import NotFound from "./NotFound";
+import productDetail from "./productDetail";
 
 export default class App extends Component {
   state = { currentCategory: "", products: [] };
 
   changeCategory = (category) => {
     this.setState({ currentCategory: category.categoryName });
-    this.getProducts(category.id)
-    alertify.success("SEÇTİĞİN KATEGORİ "+category.categoryName,2)
+    this.getProducts(category.id);
+    alertify.success("SEÇTİĞİN KATEGORİ " + category.categoryName, 2);
   };
 
   componentDidMount() {
@@ -20,9 +23,9 @@ export default class App extends Component {
   getProducts = (categoryId) => {
     let url = "http://localhost:3000/products";
 
-     if (categoryId) {
-       url += "?categoryId=" + categoryId;
-       console.log(url)
+    if (categoryId) {
+      url += "?categoryId=" + categoryId;
+      console.log(url);
     }
 
     fetch(url)
@@ -50,10 +53,21 @@ export default class App extends Component {
             </Col>
 
             <Col xs="9">
-              <Product
-                info={productInfo}
-                products={this.state.products}
-              ></Product>
+              <Switch>
+                <Route
+                  exact
+                  path="/"
+                  render={(props) => (
+                    <Product
+                      {...props}
+                      info={productInfo}
+                      products={this.state.products}
+                    ></Product>
+                  )}
+                ></Route>
+                <Route exact path="/product" component={productDetail}></Route>
+                <Route component={NotFound} path="/"></Route>
+              </Switch>
             </Col>
           </Row>
         </Container>
