@@ -7,6 +7,7 @@ import alertify from "alertifyjs";
 import { Switch, Route } from "react-router-dom";
 import NotFound from "./NotFound";
 import productDetail from "./productDetail";
+import formExams from "./formExams";
 
 export default class App extends Component {
   state = { currentCategory: "", products: [] };
@@ -40,9 +41,9 @@ export default class App extends Component {
     return (
       <div className="App">
         <Container>
-          <Row>
-            <Navigate></Navigate>
-          </Row>
+       
+            <Navigate expand="md"></Navigate>
+      
           <Row>
             <Col xs="3">
               <Category
@@ -66,7 +67,8 @@ export default class App extends Component {
                   )}
                 ></Route>
                 <Route exact path="/product" component={productDetail}></Route>
-                <Route component={NotFound} path="/"></Route>
+                <Route exact path="/form1" component={formExams} ></Route>
+                <Route component={NotFound} path="/"></Route>               
               </Switch>
             </Col>
           </Row>
