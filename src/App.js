@@ -3,6 +3,7 @@ import { Container, Row, Col } from "reactstrap";
 import Category from "./Category";
 import Product from "./Product";
 import Navigate from "./Navigate";
+import alertify from "alertifyjs";
 
 export default class App extends Component {
   state = { currentCategory: "", products: [] };
@@ -10,6 +11,7 @@ export default class App extends Component {
   changeCategory = (category) => {
     this.setState({ currentCategory: category.categoryName });
     this.getProducts(category.id)
+    alertify.success("SEÇTİĞİN KATEGORİ "+category.categoryName,2)
   };
 
   componentDidMount() {
